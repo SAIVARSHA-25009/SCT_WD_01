@@ -1,0 +1,54 @@
+<html>
+<head>
+<title>calculator</title>
+<style>
+button{
+width:50px;
+height:50px;
+background-color:aqua;
+font-size:30px;
+}
+input[type=text]{
+width:150px;;
+height:50px;
+border:2px;
+font-size:30px;
+}
+</style>
+<script src="logic.js"></script>
+</head>
+<body>
+<caption><h1 align="center">MY CASIO</h1></caption>
+<table cellspacing="10px" cellpadding="20px" align="center" border="2px" bgcolor="pink">
+<tr align="center">
+<td colspan="2" bgcolor="aqua"><input type="text" id="result"></td>
+<td><button onclick="show('.')">.</button></td>
+<td><button onclick="ac()">AC</button></td>
+</tr>
+<tr align="center">
+<td><button onclick="show('1')">1</button></td>
+<td><button onclick="show('2')">2</button></td>
+<td><button onclick="show('3')">3</button></td>
+<td><button onclick="show('+')">+</button></td>
+</tr>
+<tr align="center">
+<td><button onclick="show('4')">4</button></td>
+<td><button onclick="show('5')">5</button></td>
+<td><button onclick="show('6')">6</button></td>
+<td><button onclick="show('-')">-</button></td>
+</tr>
+<tr align="center">
+<td><button onclick="show('7')">7</button></td>
+<td><button onclick="show('8')">8</button></td>
+<td><button onclick="show('9')">9</button></td>
+<td><button onclick="show('*')">*</button></td>
+</tr>
+<tr align="center">
+<td><button onclick="show('0')">0</button></td>
+<td><button onclick="show('%')">%</button></td>
+<td><button onclick="show('/')">/</button></td>
+<td><button onclick="cal()">=</button></td>
+</tr>
+</table>
+</body>
+</html>

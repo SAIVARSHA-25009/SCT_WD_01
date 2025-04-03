@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">  
+
+<head>   
+    <meta charset="UTF-8">   
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Canteen 1 | Three Canteens</title>   
+
+    <style>
+        body {
+            background-image: url('northcanteen.jpg');
+            background-repeat: no-repeat;
+            background-size: cover;
+            backdrop-filter: blur(3px);
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+
+        h1, h2 {
+            text-align: center;
+        }
+
+        .navbar {
+            overflow: hidden;
+            background-color: #333;
+        }
+
+        .navbar a {
+            float: left;
+            font-size: 16px;
+            color: white;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+        }
+
+        .dropdown {
+            float: left;
+            overflow: hidden;
+        }
+
+        .dropdown .dropbtn {
+            font-size: 16px;
+            border: none;
+            outline: none;
+            color: white;
+            padding: 14px 16px;
+            background-color: inherit;
+        }
+
+        .navbar a:hover, .dropdown:hover .dropbtn {
+            background-color: red;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            min-width: 200px;
+            box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+            z-index: 1;
+        }
+
+        .dropdown-content a {
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            text-align: left;
+        }
+
+        .dropdown-content a:hover {
+            background-color: #ddd;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        #menu {
+            background: gray;
+            padding: 30px;
+            display: inline-block;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        #menu li {
+            border-bottom: 1px solid black;
+            padding-bottom: 10px;
+            list-style-type: none;
+        }
+
+        li span img {
+            width: 80px;
+            height: 60px;
+        }
+
+        .button {
+            padding: 5px 10px;
+            font-size: 12px;
+            cursor: pointer;
+            color: white;
+            background-color: #04AA6D;
+            border: none;
+            border-radius: 15px;
+            box-shadow: 0 4px #999;
+        }
+
+        .button:hover {
+            background-color: red;
+        }
+
+        .button:active {
+            background-color: #3e8e41;
+            box-shadow: 0 2px #666;
+            transform: translateY(2px);
+        }
+
+        #order-list {
+            text-align: center;
+        }
+
+        #listItem {
+            list-style-type: none;
+            padding: 0;
+        }
+    </style>
+</head>  
+
+<body>   
+    <header>     
+        <h1>Canteen</h1>     
+        <div class="navbar">       
+            <a href="home.html">About Us</a>             
+            <div class="dropdown">         
+                <button class="dropbtn">List <i class="fa fa-caret-down"></i></button>         
+                <div class="dropdown-content">           
+                    <ul>             
+                        <li><a href="morning.html">MORNING ITEMS</a></li>             
+                        <li><a href="afternoon.html">AFTERNOON ITEMS</a></li>             
+                        <li><a href="evening.html">EVENING ITEMS</a></li>           
+                    </ul>         
+                </div>       
+            </div>     
+        </div>   
+    </header>   
+
+    <hr>    
+
+    <main>     
+        <h2>Menu</h2>     
+        <ul id="menu">       
+            <li>         
+                <span>           
+                    <img src="https://th.bing.com/th/id/OIP.X9mBFBDcOosEeMJ_qyRLZAHaEI?w=245&h=180&c=7&r=0&o=5&pid=1.7" alt="PURI">
+                    PURI - ₹40        
+                </span>        
+                <button class="button" data-name="PURI" data-price="40" onclick="order(this)">Order</button>       
+            </li>       
+            <li>         
+                <span>           
+                    <img src="https://th.bing.com/th/id/OIP.OrTVxjF7_Pa20Y9oTH6tQgHaEo?w=234&h=180&c=7&r=0&o=5&pid=1.7" alt="IDLY">
+                    IDLY - ₹20        
+                </span>         
+                <button class="button" data-name="IDLY" data-price="20" onclick="order(this)">Order</button>       
+            </li>       
+            <li>         
+                <span>           
+                    <img src="https://th.bing.com/th/id/OIP.ZL6DG8SlKhodz2yOf1aU4QHaFj?w=230&h=180&c=7&r=0&o=5&pid=1.7" alt="UPMA">
+                    UPMA - ₹30        
+                </span>         
+                <button class="button" data-name="UPMA" data-price="30" onclick="order(this)">Order</button>       
+            </li>     
+        </ul>     
+        <hr>     
+        <div id="order-list">       
+            <h2>Order List</h2>       
+            <ul id="listItem"></ul>       
+            <p id="waiting-time">Estimated waiting time: 0 minutes</p>     
+        </div>     
+        <hr>   
+    </main>    
+
+    <script>
+        function order(button) {
+            var itemName = button.getAttribute("data-name");
+            var itemPrice = button.getAttribute("data-price");
+
+            var listItem = document.createElement("li");
+            listItem.innerHTML = `${itemName} - ₹${itemPrice} 
+                <button onclick="removeItem(this)">Remove</button>`;
+
+            document.getElementById("listItem").appendChild(listItem);
+
+            updateWaitingTime();
+        }
+
+        function removeItem(button) {
+            button.parentElement.remove();
+            updateWaitingTime();
+        }
+
+        function updateWaitingTime() {
+            var numberOfOrders = document.getElementById("listItem").childElementCount;
+            var waitingTimeInMinutes = numberOfOrders * 5;
+            document.getElementById("waiting-time").innerText = "Estimated waiting time: " + waitingTimeInMinutes + " minutes";
+        }
+    </script> 
+</body>  
+
+</html>
