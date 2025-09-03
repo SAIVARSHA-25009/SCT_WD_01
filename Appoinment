@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Appointment Booking</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f9f9f9;
+      padding: 20px;
+    }
+    .container {
+      max-width: 420px;
+      margin: auto;
+      background: #fff;
+      padding: 25px;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+    h2 {
+      text-align: center;
+      color: #333;
+    }
+    input, select, button {
+      width: 100%;
+      margin: 10px 0;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      box-sizing: border-box;
+      font-size: 14px;
+    }
+    button {
+      background-color: #4CAF50;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    button:hover {
+      background-color: #45a049;
+    }
+    .confirmation {
+      margin-top: 15px;
+      background-color: #d4edda;
+      color: #155724;
+      padding: 12px;
+      border-radius: 6px;
+      border: 1px solid #c3e6cb;
+      font-size: 14px;
+      line-height: 1.5;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Book Appointment</h2>
+    <form id="bookingForm">
+      <input type="text" id="name" placeholder="Your Name" required>
+      <input type="email" id="email" placeholder="Email" required>
+      <select id="service" required>
+        <option value="">Select Service</option>
+        <option>Consultation</option>
+        <option>Follow-up</option>
+        <option>Therapy Session</option>
+      </select>
+      <input type="date" id="date" required>
+      <input type="time" id="time" required>
+      <button type="submit">Book</button>
+    </form>
+    <div class="confirmation" id="confirmationBox"></div>
+  </div>
+
+  <script>
+    document.getElementById('bookingForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      const name = document.getElementById('name').value;
+      const email = document.getElementById('email').value;
+      const service = document.getElementById('service').value;
+      const date = document.getElementById('date').value;
+      const time = document.getElementById('time').value;
+
+      const selectedDate = new Date(`${date}T${time}`);
+      const now = new Date();
+
+      if (selectedDate < now) {
+        alert("⚠️ Please select a future date and time.");
+        return;
+      }
+
+      const box = document.getElementById('confirmationBox');
+      box.innerHTML = `
+        <strong>✅ Appointment Confirmed!</strong><br>
+        <b>Name:</b> ${name}<br>
+        <b>Email:</b> ${email}<br>
+        <b>Service:</b> ${service}<br>
+        <b>Date:</b> ${date}<br>
+        <b>Time:</b> ${time}
+      `;
+      box.style.display = 'block';
+      this.reset();
+    });
+  </script>
+</body>
+</html>
